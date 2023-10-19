@@ -1,3 +1,6 @@
+Alphabet:
+ -letters: a-z and A-Z
+ -digits: 0-9
 
 identifier ::= letter {letter | digit}
 letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
@@ -7,6 +10,6 @@ sign ::= "+" | "-"
 validnum ::=  [sign] nozerodigit {digit} | "0"
 validstring ::= letter | letter {letter | digit}
 sentence ::= """{letter|digit|" "}"""
-operators ::= + - * / = % LT LE GT GE EQ NE 
+operators ::= + - * / = % LT LE GT GE EQ NE and or
 separators ::= [] {} < > :; space
-reservedwords ::= array char int const shots cascade do else if of program read then write
+reservedwords ::= array char int const shots cascade do else if of program read then write and or
