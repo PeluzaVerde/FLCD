@@ -1,0 +1,12 @@
+
+identifier ::= letter {letter | digit}
+letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+digit ::= "0" | "1" | ... |"9"
+nozerodigit ::=  "1" | "2" | ... |"9"
+sign ::= "+" | "-"
+validnum ::=  [sign] nozerodigit {digit} | "0"
+validstring ::= letter | letter {letter | digit}
+sentence ::= """{letter|digit|" "}"""
+operators ::= + - * / = % LT LE GT GE EQ NE 
+separators ::= [] {} < > :; space
+reservedwords ::= array char int const shots cascade do else if of program read then write
