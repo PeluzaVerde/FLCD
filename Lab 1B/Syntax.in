@@ -1,17 +1,18 @@
 Type = "int" | "char" 
 
-Program = "#" cmpdstmt {";"} "#"
+Program = "#" cmpdstmt "#"
 cmpdstmt = statement | statement cmpdstmt
-statement = declarationStmt | declarationArray | assignment | ifStmt | CascadeStmt | shotsStmt
+statement = declarationStmt | declarationArray | assignmentStmt | ifStmt | CascadeStmt | shotsStmt | ioStmt
 declarationStmt = Type declarationList
-declarationList = ValidString ["=" expression] {"," ValidString ["=" expression]} ";"
-declarationArray = "Array" Type ValidString ";" | "Array" Type ValidString ["=" "{"validnum {"," validnum  }"}" | "=" "{" Sentence "}" ]";"
-assignment = ValidString "=" expression ";"
+declarationList = identifier ["=" expression] {"," identifier ["=" expression]} ";"
+declarationArray = "Array" Type identifier ";" | "Array" Type identifier ["=" "{"validnum {"," validnum  }"}" | "=" "{" Sentence "}" ]";"
+assignmentStmt = identifier "=" expression ";"
 expression = integerExpr | StringExpr
-integerExpr = validnum | validstring | integerExpr ("+"|"-"|"*"|"/"|"%") integerExpr
-StringExpr = validstring | Sentence
+integerExpr = validnum | identifier | integerExpr ("+"|"-"|"*"|"/"|"%") integerExpr
+StringExpr = identifier | Sentence
 ifStmt =  "if (" conditional ")" "<" {cmpdstmt} ">" ["else" "<" cmpdstmt ">"]
-conditional = expression ("EQ"|"LT"|"LE"|"GT"|"Ge"|"NE") expression
+conditional = expression ("EQ"|"LT"|"LE"|"GT"|"GE"|"NE") expression
 cascadeStmt =  "cascade (" conditional ")" "<" {cmpdstmt} ">" 
-shotsStmt = "shots" "(" ["int"] assignment ";" conditional ";" ValidString "=" integerExpr ")<" cmpdstmt ">" 
+shotsStmt = "shots" "(" ["int"] assignmentStmt ";" conditional ";" identifier "=" integerExpr ")<" cmpdstmt ">" 
+ioStmt = "read" "(" identifier ")" ";" | "display" "(" (identifier|validnum|sentence) ")" ";" 
  
