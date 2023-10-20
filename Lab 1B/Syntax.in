@@ -3,13 +3,17 @@ Type = "int" | "char"
 Program = "#" cmpdstmt "#"
 cmpdstmt = statement | statement cmpdstmt
 statement = declarationStmt | declarationArray | assignmentStmt | ifStmt | CascadeStmt | shotsStmt | ioStmt
+
 declarationStmt = Type declarationList
 declarationList = identifier ["=" expression] {"," identifier ["=" expression]} ";"
 declarationArray = "Array" Type identifier ";" | "Array" Type identifier ["=" "{"validnum {"," validnum  }"}" | "=" "{" Sentence "}" ]";"
 assignmentStmt = identifier "=" expression ";"
+
 expression = integerExpr | StringExpr
-integerExpr = validnum | identifier | integerExpr ("+"|"-"|"*"|"/"|"%") integerExpr
+
+integerExpr = validnum | identifier | integerExpr ("+"|"-"|"*"|"/"|"%") integerExpr | integerExpr ("+"|"-"|"*"|"/"|"%") "(" integerExpr ")" | "(" integerExpr ")" ("+"|"-"|"*"|"/"|"%") integerExpr 
 StringExpr = identifier | Sentence
+
 ifStmt =  "if (" conditional ")" "<" {cmpdstmt} ">" ["else" "<" cmpdstmt ">"]
 conditional = expression ("EQ"|"LT"|"LE"|"GT"|"GE"|"NE") expression
 cascadeStmt =  "cascade (" conditional ")" "<" {cmpdstmt} ">" 
