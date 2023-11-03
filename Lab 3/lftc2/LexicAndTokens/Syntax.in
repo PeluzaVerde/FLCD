@@ -1,0 +1,17 @@
+Type = "int" | "char" 
+
+Program = "#" cmpdstmt ";" "#"
+cmpdstmt = statement | statement cmpdstmt
+statement = declarationStmt | declarationArray | assignment | ifStmt | CascadeStmt | shotsStmt
+declarationStmt = Type declarationList
+declarationList = ValidString ["=" expression] {"," ValidString ["=" expression]} ";"
+declarationArray = "Array" Type ValidString ";" | "Array" Type ValidString ["=" "{"validnum {"," validnum  }"}" | "=" "{" Sentence "}" ]";"
+assignment = ValidString "=" expression ";"
+expression = integerExpr | StringExpr
+integerExpr = validnum | validstring | integerExpr ("+"|"-"|"*"|"/"|"%") integerExpr
+StringExpr = validstring | Sentence
+ifStmt =  "if" "(" conditional [ ("&&"|"||") conditional ] ")" "<" {cmpdstmt} ">" ["else" "<" cmpdstmt ">"]
+conditional = expression ("EQ"|"LT"|"LE"|"GT"|"Ge"|"NE") expression
+cascadeStmt =  "cascade (" conditional ")" "<" {cmpdstmt} ">" 
+shotsStmt = "shots" "(" ["int"] assignment conditional ";" ValidString "=" integerExpr ")<" cmpdstmt ">" 
+ 

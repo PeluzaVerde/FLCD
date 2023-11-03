@@ -1,0 +1,25 @@
+#
+        int a,b,c;
+        char d;
+        d = "44dsbagadaa5Grabbb"
+		read(a);
+		read(b);
+		read(c);
+        int max, min;
+			max= a;
+			min = a; 
+        if (max LT b) < 
+            max = b;
+        >
+        if (max LT c) <
+            max = c;
+        >
+        if (min GT b) <
+            min = b;
+        >
+        if (min GT c) <
+            min = c;
+        >
+		display(min);
+		display(max);
+#
