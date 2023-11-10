@@ -1,0 +1,14 @@
+#
+        int a,b;
+		read(a);
+		read(b);
+        int result;
+        
+		cascade (b GT 0)<
+		 int aux;
+		 aux = a%b;
+		 a = b;
+		 b = aux;
+		>
+		display(a);
+#
