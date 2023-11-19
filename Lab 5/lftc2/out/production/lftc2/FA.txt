@@ -1,0 +1,10 @@
+p,q,r
+a,b
+p,a,q
+q,a,q
+q,b,r
+p,b,r
+p,a,r
+transition_end
+p
+r

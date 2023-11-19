@@ -1,0 +1,10 @@
+#
+		array int n = {1,2,1,2};
+        int sum,num, size;
+		size =4;
+		sum = 0;
+		shots(num=0; num LT size; num = num + 1)<
+		 sum = sum + n[num];
+		>
+		display(sum);
+#

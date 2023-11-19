@@ -1,0 +1,9 @@
+<FA>::=<states list>\n'<alphabet>'\n'<transition list>'\n'transition_end'\n'<initial state>'\n'<final states>
+<states list>::= <state>|<state>,<states list>
+<state>::= A|B|C|...|Y|Z
+<alphabet>::= <char>|<char>,<alphabet>
+<char>::=0|1|...|9|a|b|...|z|A|B|...|Z
+<initial state>::= <state>
+<final states>::= <states>
+<transition list>::= <transition>|<transition>'\n'<transition list>
+<transition>::= <state>,<char>,<state>
