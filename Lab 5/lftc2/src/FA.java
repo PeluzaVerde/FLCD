@@ -9,7 +9,6 @@ public class FA {
     Map<Pair<String, String>, ArrayList<String>> transitions;
     String initialState;
     Set<String> finalStates;
-    boolean is_Deterministic = true;
 
     public FA(String filepath) throws IOException{
         var bufferedReader = new BufferedReader(new FileReader(filepath));
@@ -24,16 +23,16 @@ public class FA {
         String transition = bufferedReader.readLine().replace("\n", "");
         while (!transition.equals("transition_end")) {
             String[] transitionElements = transition.split(",");
-            String currentState = transitionElements[0];
+            String sourceState = transitionElements[0];
             String alphabetElement = transitionElements[1];
-            String nextState = transitionElements[2];
+            String destinationState = transitionElements[2];
 
-            Pair<String,String> keyPair = new Pair<>(currentState, alphabetElement);
-            if (transitions.keySet().stream().anyMatch(pair -> pair.toString().equals(keyPair.toString()))) {
-                transitions.get(keyPair).add(nextState);
+            Pair<String,String> keyPair = new Pair<>(sourceState, alphabetElement);
+            if (transitions.containsKey(keyPair)) {
+                transitions.get(keyPair).add(destinationState);
             } else {
                 ArrayList<String> values = new ArrayList<>();
-                values.add(nextState);
+                values.add(destinationState);
                 transitions.put(keyPair, values);
             }
 
@@ -51,27 +50,27 @@ public class FA {
     public String verifyTheSequence(String sequence){
         if (!isDeterministic())
             return "the sequence is nondeterministic";
-        String currentState = initialState;
+        String sourceState = initialState;
         List<String> seqList = List.of(sequence.split(""));
         for(String letter: seqList){
             System.out.println(letter);
 
-                Pair<String, String> key = new Pair<>(currentState, letter);
+                Pair<String, String> key = new Pair<>(sourceState, letter);
                 System.out.println(key);
 
-            Optional<Pair<String, String>> matchingKey = transitions.keySet().stream()
-                    .filter(pair -> pair.toString().equals(key.toString()))
-                    .findFirst();
-            if (matchingKey.isPresent()) {
-                Pair<String, String> actualKey = matchingKey.get();
-                currentState = this.transitions.get(actualKey).get(0);
+//            Optional<Pair<String, String>> matchingKey = transitions.keySet().stream()
+//                    .filter(pair -> pair.toString().equals(key.toString()))
+//                    .findFirst();
+            if (transitions.containsKey(key)) {
+
+                sourceState = this.transitions.get(key).get(0);
             }
             else
                 //if (transitions.keySet().stream().anyMatch(pair -> pair.toString().equals(key.toString()))) {
                     return "The sequence is not accepted by the FA " + sequence;
             }
 
-        if ( finalStates.contains( currentState)){
+        if ( finalStates.contains( sourceState)){
             return "The sequence " + sequence +" is accepted by the FA.";
         }
         return "The sequence is not accepted by the FA " + sequence;
@@ -102,10 +101,10 @@ public class FA {
 
     public String transitionsToString() {
         var stringBuilder = new StringBuilder();
-        transitions.forEach((state_alphabet_pair, nextState) -> {
-            String currentState = state_alphabet_pair.getFirst();
+        transitions.forEach((state_alphabet_pair, destinationState) -> {
+            String sourceState = state_alphabet_pair.getFirst();
             String alphabetElement = state_alphabet_pair.getSecond();
-            stringBuilder.append("delta(%s,%s) = %s\n".formatted(currentState, alphabetElement, nextState));
+            stringBuilder.append("delta(%s,%s) = %s\n".formatted(sourceState, alphabetElement, destinationState));
         });
 
         //delete the last new line
@@ -123,6 +122,29 @@ public class FA {
         stringBuilder.append("F = ");
         stringBuilder.append(finalStates.toString().replace("[", "{").replace("]", "}"));
         return stringBuilder.toString();
+    }
+
+    public boolean isSequenceAccepted(String sequence){
+        if (!isDeterministic())
+            return false;
+        String sourceState = initialState;
+        List<String> seqList = List.of(sequence.split(""));
+        for(String letter: seqList){
+            System.out.println(letter);
+
+            Pair<String, String> key = new Pair<>(sourceState, letter);
+            System.out.println(key);
+
+            if (transitions.containsKey(key)) {
+
+                sourceState = this.transitions.get(key).get(0);
+            }
+            else
+                return false;
+        }
+
+        return finalStates.contains( sourceState);
+
     }
 
     @Override

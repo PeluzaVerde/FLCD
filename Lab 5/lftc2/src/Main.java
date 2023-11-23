@@ -8,11 +8,11 @@ public class Main {
 //        SymbolTable st = new SymbolTable(30);
 //        st.addSym("Result");
 //        System.out.println(st.toString());
-        //Scanner s = new Scanner("new 1.txt");
-        //s.scan();
+        MyScanner s = new MyScanner("new 3.txt");
+        s.scan();
 
+/*
         FA fa;
-
          {
             try {
                 fa = new FA("src/FA.txt");
@@ -60,13 +60,13 @@ public class Main {
                 default:
                     System.out.println("Invalid option");
                     break;
-            }
+                }
             }
         System.out.println("-------------------------------------------");
 
+ */
 
-
-        }
+}
 
 
     public static void printFAMenu() {

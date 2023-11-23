@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Pair<K, V> {
     K first;
     V second;
@@ -9,7 +11,7 @@ public class Pair<K, V> {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(first, second);
     }
 
     K getFirst(){

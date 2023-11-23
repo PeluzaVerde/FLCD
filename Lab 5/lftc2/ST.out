@@ -1,10 +1,11 @@
 Identifiers:
-a => 7
-b => 8
-c => 9
-d => 10
-min => 24
-max => 26
+num => 6
+sum => 11
+n => 20
+size => 23
 
 Constants:
-"44dsbagadaa5Grabbb" => 19
+0 => 18
+1 => 19
+2 => 20
+4 => 22
